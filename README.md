@@ -52,4 +52,15 @@ The Python script included in this repository handles:
 * **Regex Header Mapping:** Truncating multi-line strings into standardized state identifiers and FIPS-compatible codes.
 
 ### Database Optimization (SQL)
-Rather than executing resource-heavy multi-table joins inside Tableau at
+Rather than executing resource-heavy multi-table joins inside Tableau at runtime, all relational modeling was pre-compiled using SQL within **DBeaver**. 
+* Merged un-pivoted demographic tables with spatial retailer counts.
+* Standardized geographic keys across distinct datasets to ensure clean, zero-loss joins.
+* **Performance Impact:** Drastically decreased metadata payload sizes, ensuring fluid rendering and high shareability on Tableau Public.
+
+---
+
+## Dashboard Technical Fixes
+
+During the development of the Tableau visualization layer, specific table calculation anomalies were resolved to ensure data integrity:
+* **Top 5 / Bottom 5 Component Scope:** Fixed an issue where context filters or table directions (`Table down` vs. `Table across`) caused calculation thresholds to mismatch. Solved by explicitly fixing the calculation scope directly to the geographical dimension.
+* **Donut Chart Percentage Labels:** Fixed a calculation error where standard `TOTAL()` summaries evaluated chart slices independently (returning a rank or calculation value of `1` for every slice). Addressed by mapping the explicit table calculation to compute along the precise dimension slicing the visualization.
